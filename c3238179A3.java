@@ -58,6 +58,10 @@ public class c3238179A3
 		// ===============================================
 
 		// parse data from Process text files into Process objects
+
+		int f = F / files.length;	// process memory allocation (fixed)
+		System.out.println(f);
+
 		String line;
 		Process process[] = new Process[files.length];
 		for (int i = 0; i < files.length; i++)
@@ -68,7 +72,7 @@ public class c3238179A3
 				if (!line.equals("begin"))
 					data.add(Integer.parseInt(line));
 			}
-			process[i] = new Process(data, i);
+			process[i] = new Process(data, i, f);
 		}
 		Scheduler cpu = new Scheduler(F, Q);		// initialize Scheduler with prerequisite date
 		cpu.run(process);
