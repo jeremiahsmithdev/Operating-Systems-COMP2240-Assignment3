@@ -1,12 +1,14 @@
 import java.util.List;
 import java.util.LinkedList;
+import java.util.ArrayList;
 
 // TODO max 50 pages
 
 public class Process// implements Comparable<Process>
 {
 	private LinkedList<Integer> pages;
-	private LinkedList<Integer> faultTimes;
+	// private LinkedList<Integer> faultTimes;
+	private ArrayList<Integer> faultTimes;
 	private int id;
 	private String state;
 	private int waiting;		// page waiting on if blocked
@@ -25,15 +27,19 @@ public class Process// implements Comparable<Process>
 		this.pages = pages;
 		this.id = id;
 		this.state = "ready";
-		this.faultTimes = new LinkedList<Integer>();
+		// this.faultTimes = new LinkedList<Integer>();
+		// this.faultTimes = new int[0];
+		this.faultTimes = new ArrayList<Integer>();
 		this.frames = frames;
 		this.memory = new Memory(frames);
 		this.requests = new LinkedList<PageRequest>();
 	}
 
-	public void executeInstruction()
+	public void pageExecute(int time)
 	{
-		System.out.println(" executes page " + pages.poll());
+		int page = pages.poll();
+		System.out.println(" executes page " + page);
+		memory.execute(page, time);
 	}
 
 	public int getID()
@@ -76,9 +82,19 @@ public class Process// implements Comparable<Process>
 		faultTimes.add(time);
 	}
 
-	public LinkedList<Integer> getFaults()
+	public String getFaults()
 	{
-		return faultTimes;
+		String list = "{";
+		for (int i = 0; i < faultTimes.size(); i++)
+		{
+			if (i == 0)		// first
+				list += faultTimes.get(i);
+
+			else 
+				list += ", "+faultTimes.get(i);
+		}
+		list += "}";
+		return list;
 	}
 
 	public int getFinishTime()
@@ -94,7 +110,7 @@ public class Process// implements Comparable<Process>
 
 	public int faultNo()
 	{
-		return faultTimes.length;
+		return faultTimes.size();
 	}
 
 	public boolean hasPage(int page)
@@ -102,10 +118,10 @@ public class Process// implements Comparable<Process>
 		return memory.hasPage(page);
 	}
 
-	public void addPage(int page)
-	{
-		memory.add(page);
-	}
+	// public boolean addPage(int page)
+	// {
+	// 	return memory.add(page);
+	// }
 
 	public Memory getMemory()
 	{
@@ -126,7 +142,7 @@ public class Process// implements Comparable<Process>
 	}
 
 	// if page ready, then set process to ready and put page in memory
-	public void checkForReady(int time)
+	public void addReadyPages(int time)
 	{
 		LinkedList<PageRequest> used = new LinkedList<PageRequest>();
 		for (PageRequest request : requests)

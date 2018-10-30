@@ -49,12 +49,12 @@ public class c3238179A3
 			F = 30;
 			Q = 3;
 			// process = new String[4];		// instantiate array of file names
-			files = new File[4];
-			br = new BufferedReader[4];
+			files = new File[3];
+			br = new BufferedReader[3];
 			// process[0] = "Process1.txt";process[1] = "Process2.txt";process[2] = "Process3.txt";process[3] = "Process4.txt";
-			files[0] = new File("Process1.txt");files[1] = new File("Process2.txt");files[2] = new File("Process3.txt");files[3] = new File("Process4.txt");
+			files[0] = new File("Process1.txt");files[1] = new File("Process2.txt");files[2] = new File("Process3.txt");
 			br[0] = new BufferedReader(new FileReader(files[0]));br[1] = new BufferedReader(new FileReader(files[1]));
-			br[2] = new BufferedReader(new FileReader(files[2]));br[3] = new BufferedReader(new FileReader(files[3]));
+			br[2] = new BufferedReader(new FileReader(files[2]));
 		// ===============================================
 
 		// parse data from Process text files into Process objects

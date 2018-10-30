@@ -9,6 +9,10 @@ F	CPU.java	/^	private int F;$/;"	f	class:Scheduler	file:
 F	Memory.java	/^	private int F;		\/\/ frames$/;"	f	class:Memory	file:
 F	Scheduler.java	/^	private int F;$/;"	f	class:Scheduler	file:
 F	c3238179A3.java	/^	static private int F;	\/\/ number of frames$/;"	f	class:c3238179A3	file:
+Frame	Frame.java	/^	public Frame()$/;"	m	class:Frame
+Frame	Frame.java	/^public class Frame$/;"	c
+Frame	Page.java	/^	public Frame()$/;"	m	class:Frame
+Frame	Page.java	/^public class Frame$/;"	c
 Memory	Memory.java	/^	public Memory(int F)$/;"	m	class:Memory
 Memory	Memory.java	/^public class Memory$/;"	c
 PageRequest	PageRequest.java	/^	public PageRequest(int page, int ready)$/;"	m	class:PageRequest
@@ -24,7 +28,7 @@ Scheduler	Scheduler.java	/^	public Scheduler(int F, int Q)$/;"	m	class:Scheduler
 Scheduler	Scheduler.java	/^public class Scheduler$/;"	c
 add	Memory.java	/^	public boolean add(int page)$/;"	m	class:Memory
 addFault	Process.java	/^	public void addFault(int time)$/;"	m	class:Process
-addPage	Process.java	/^	public void addPage(int page)$/;"	m	class:Process
+addReadyPages	Process.java	/^	public void addReadyPages(int time)$/;"	m	class:Process
 addRequest	CPU.java	/^	public void addRequest(int page, int time)$/;"	m	class:Scheduler
 addRequest	Process.java	/^	public void addRequest(int page, int time)$/;"	m	class:Process
 blocked	CPU.java	/^	private LinkedList<Process> blocked;$/;"	f	class:Scheduler	file:
@@ -33,24 +37,27 @@ br	c3238179A3.java	/^	static BufferedReader br[];$/;"	f	class:c3238179A3
 c3238179A3	c3238179A3.java	/^public class c3238179A3$/;"	c
 check	Process.java	/^	public int check()$/;"	m	class:Process
 checkForReady	CPU.java	/^	public void checkForReady()$/;"	m	class:Scheduler
-checkForReady	Process.java	/^	public void checkForReady(int time)$/;"	m	class:Process
 checkForReady	Scheduler.java	/^	public void checkForReady()$/;"	m	class:Scheduler
 count	CPU.java	/^	private int count;$/;"	f	class:Scheduler	file:
 count	Scheduler.java	/^	private int count;$/;"	f	class:Scheduler	file:
 execute	CPU.java	/^	public void execute(Process active)$/;"	m	class:Scheduler
+execute	Memory.java	/^	public void execute(int page, int time)$/;"	m	class:Memory
 execute	Scheduler.java	/^	public void execute(Process active)$/;"	m	class:Scheduler
-executeInstruction	Process.java	/^	public void executeInstruction()$/;"	m	class:Process
 faultNo	Process.java	/^	public int faultNo()$/;"	m	class:Process
-faultTimes	Process.java	/^	private LinkedList<Integer> faultTimes;$/;"	f	class:Process	file:
+faultTimes	Process.java	/^	private ArrayList<Integer> faultTimes;$/;"	f	class:Process	file:
 files	c3238179A3.java	/^	static File files[];$/;"	f	class:c3238179A3
 finishTime	Process.java	/^	private int finishTime;$/;"	f	class:Process	file:
 finished	CPU.java	/^	private LinkedList<Process> finished;$/;"	f	class:Scheduler	file:
 finished	Scheduler.java	/^	private LinkedList<Process> finished;$/;"	f	class:Scheduler	file:
 frames	Process.java	/^	private int frames;$/;"	f	class:Process	file:
-getFaults	Process.java	/^	public LinkedList<Integer> getFaults()$/;"	m	class:Process
+getFaults	Process.java	/^	public String getFaults()$/;"	m	class:Process
 getFinishTime	Process.java	/^	public int getFinishTime()$/;"	m	class:Process
 getID	Process.java	/^	public int getID()$/;"	m	class:Process
+getLastUsed	Frame.java	/^	public int getLastUsed()$/;"	m	class:Frame
+getLastUsed	Page.java	/^	public int getLastUsed()$/;"	m	class:Frame
 getMemory	Process.java	/^	public Memory getMemory()$/;"	m	class:Process
+getPage	Frame.java	/^	public int getPage()$/;"	m	class:Frame
+getPage	Page.java	/^	public int getPage()$/;"	m	class:Frame
 getPage	PageRequest.java	/^	public int getPage()$/;"	m	class:PageRequest
 getPages	Process.java	/^	public List<Integer> getPages()$/;"	m	class:Process
 getReady	PageRequest.java	/^	public int getReady()$/;"	m	class:PageRequest
@@ -63,12 +70,17 @@ inMemory	CPU.java	/^	public boolean inMemory(int page)$/;"	m	class:Scheduler
 insertInOrder	Scheduler.java	/^	public void insertInOrder()$/;"	m	class:Scheduler
 ioRequest	CPU.java	/^	public void ioRequest(int page)$/;"	m	class:Scheduler
 ioRequest	Scheduler.java	/^	public void ioRequest(int page)$/;"	m	class:Scheduler
+lastUsed	Frame.java	/^	private int lastUsed;$/;"	f	class:Frame	file:
+lastUsed	Page.java	/^	private int lastUsed;$/;"	f	class:Frame	file:
 main	c3238179A3.java	/^	public static void main(String args[]) throws Exception$/;"	m	class:c3238179A3
 memory	CPU.java	/^	private List<Integer> memory;$/;"	f	class:Scheduler	file:
-memory	Memory.java	/^	private int memory[];$/;"	f	class:Memory	file:
+memory	Memory.java	/^	private Frame memory[];$/;"	f	class:Memory	file:
 memory	Process.java	/^	private Memory memory;$/;"	f	class:Process	file:
 notify	CPU.java	/^	public void notify(int page)$/;"	m	class:Scheduler
+page	Frame.java	/^	private int page;$/;"	f	class:Frame	file:
+page	Page.java	/^	private int page;$/;"	f	class:Frame	file:
 page	PageRequest.java	/^	private int page;$/;"	f	class:PageRequest	file:
+pageExecute	Process.java	/^	public void pageExecute(int time)$/;"	m	class:Process
 pages	Process.java	/^	private LinkedList<Integer> pages;$/;"	f	class:Process	file:
 processes	CPU.java	/^	private LinkedList<Process> processes;$/;"	f	class:Scheduler	file:
 processes	Scheduler.java	/^	private LinkedList<Process> processes;$/;"	f	class:Scheduler	file:
@@ -81,6 +93,10 @@ requests	Scheduler.java	/^	private List<PageRequest> requests;$/;"	f	class:Sched
 run	CPU.java	/^	public void run(Process process[])$/;"	m	class:Scheduler
 run	Scheduler.java	/^	public void run(Process process[])$/;"	m	class:Scheduler
 setFinishTime	Process.java	/^	public void setFinishTime(int time)$/;"	m	class:Process
+setLastUsed	Frame.java	/^	public void setLastUsed(int time)$/;"	m	class:Frame
+setLastUsed	Page.java	/^	public void setLastUsed(int time)$/;"	m	class:Frame
+setPage	Frame.java	/^	public void setPage(int page)$/;"	m	class:Frame
+setPage	Page.java	/^	public void setPage(int page)$/;"	m	class:Frame
 setState	Process.java	/^	public void setState(String state)$/;"	m	class:Process
 setWaiting	Process.java	/^	public void setWaiting(int page)$/;"	m	class:Process
 size	Memory.java	/^	public int size()$/;"	m	class:Memory

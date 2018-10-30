@@ -48,7 +48,7 @@ public class Scheduler
 		}
 
 		// run while proccesses are still in the ready queue
-		// for (int a = 0; a < 20; a++)
+		// for (int a = 0; a < 70; a++)
 		while (finished.size() < processes.size())
 		{
 			// check for pages finished loading
@@ -92,13 +92,14 @@ public class Scheduler
 				// System.out.println();
 				// System.out.println("	CONTINUING FOR process: --> "+(active.getID()+1));
 				System.out.print(time+"	P"+(active.getID()+1));
-				active.executeInstruction();
+				active.pageExecute(time);
 				time++;
 				count++;
 			}
 			//
 			else 		// page is not in memory
 			{
+				System.out.println("Does not have page " + active.check());
 				// System.out.println("	PAGE FAULT 	(" + active.check()+")");
 				active.addFault(time);
 
@@ -200,7 +201,7 @@ public class Scheduler
 	{
 		for (Process p : processes)
 		{
-			p.checkForReady(time);
+			p.addReadyPages(time);
 		}
 	}
 
