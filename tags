@@ -24,11 +24,12 @@ Q	CPU.java	/^	private int Q;$/;"	f	class:Scheduler	file:
 Q	Scheduler.java	/^	private int Q;$/;"	f	class:Scheduler	file:
 Q	c3238179A3.java	/^	static private int Q;	\/\/ quantum size$/;"	f	class:c3238179A3	file:
 Scheduler	CPU.java	/^public class Scheduler$/;"	c
-Scheduler	Scheduler.java	/^	public Scheduler(int F, int Q)$/;"	m	class:Scheduler
+Scheduler	Scheduler.java	/^	public Scheduler(int F, int Q, String strategy)$/;"	m	class:Scheduler
 Scheduler	Scheduler.java	/^public class Scheduler$/;"	c
-add	Memory.java	/^	public boolean add(int page)$/;"	m	class:Memory
+add	Memory.java	/^	public void add(int page, String strategy)$/;"	m	class:Memory
 addFault	Process.java	/^	public void addFault(int time)$/;"	m	class:Process
-addReadyPages	Process.java	/^	public void addReadyPages(int time)$/;"	m	class:Process
+addProcesses	c3238179A3.java	/^	public static Process[] addProcesses(File files[], BufferedReader br[], int F, int Q) throws Exception$/;"	m	class:c3238179A3
+addReadyPages	Process.java	/^	public void addReadyPages(int time, String strategy)$/;"	m	class:Process
 addRequest	CPU.java	/^	public void addRequest(int page, int time)$/;"	m	class:Scheduler
 addRequest	Process.java	/^	public void addRequest(int page, int time)$/;"	m	class:Process
 blocked	CPU.java	/^	private LinkedList<Process> blocked;$/;"	f	class:Scheduler	file:
@@ -62,6 +63,7 @@ getPage	PageRequest.java	/^	public int getPage()$/;"	m	class:PageRequest
 getPages	Process.java	/^	public List<Integer> getPages()$/;"	m	class:Process
 getReady	PageRequest.java	/^	public int getReady()$/;"	m	class:PageRequest
 getState	Process.java	/^	public String getState()$/;"	m	class:Process
+getUseBit	Frame.java	/^	public int getUseBit()$/;"	m	class:Frame
 getWaiting	Process.java	/^	public int getWaiting()$/;"	m	class:Process
 hasPage	Memory.java	/^	public boolean hasPage(int page)$/;"	m	class:Memory
 hasPage	Process.java	/^	public boolean hasPage(int page)$/;"	m	class:Process
@@ -82,6 +84,7 @@ page	Page.java	/^	private int page;$/;"	f	class:Frame	file:
 page	PageRequest.java	/^	private int page;$/;"	f	class:PageRequest	file:
 pageExecute	Process.java	/^	public void pageExecute(int time)$/;"	m	class:Process
 pages	Process.java	/^	private LinkedList<Integer> pages;$/;"	f	class:Process	file:
+pointer	Memory.java	/^	private int pointer;$/;"	f	class:Memory	file:
 processes	CPU.java	/^	private LinkedList<Process> processes;$/;"	f	class:Scheduler	file:
 processes	Scheduler.java	/^	private LinkedList<Process> processes;$/;"	f	class:Scheduler	file:
 ready	PageRequest.java	/^	private int ready;$/;"	f	class:PageRequest	file:
@@ -98,10 +101,13 @@ setLastUsed	Page.java	/^	public void setLastUsed(int time)$/;"	m	class:Frame
 setPage	Frame.java	/^	public void setPage(int page)$/;"	m	class:Frame
 setPage	Page.java	/^	public void setPage(int page)$/;"	m	class:Frame
 setState	Process.java	/^	public void setState(String state)$/;"	m	class:Process
+setUseBit	Frame.java	/^	public void setUseBit(int bit)$/;"	m	class:Frame
 setWaiting	Process.java	/^	public void setWaiting(int page)$/;"	m	class:Process
 size	Memory.java	/^	public int size()$/;"	m	class:Memory
 state	Process.java	/^	private String state;$/;"	f	class:Process	file:
+strategy	Scheduler.java	/^	private String strategy;$/;"	f	class:Scheduler	file:
 time	CPU.java	/^	private int time;$/;"	f	class:Scheduler	file:
 time	Scheduler.java	/^	private int time;$/;"	f	class:Scheduler	file:
 toInsert	Scheduler.java	/^	private LinkedList<Process> toInsert;$/;"	f	class:Scheduler	file:
+useBit	Frame.java	/^	private int useBit;$/;"	f	class:Frame	file:
 waiting	Process.java	/^	private int waiting;		\/\/ page waiting on if blocked$/;"	f	class:Process	file:

@@ -3,12 +3,14 @@ public class Memory
 	private int F;		// frames
 	// private int memory[];
 	private Frame memory[];
+	private int pointer;
 
 	public Memory(int F)
 	{
 		this.F = F;
 		// this.memory = new int[F];
 		this.memory = new Frame[F];
+		this.pointer = 0;
 		// for (Frame p : memory)
 			for (int i = 0; i < memory.length; i++)
 		{
@@ -16,23 +18,23 @@ public class Memory
 		}
 	}
 
-	public boolean add(int page)
+	public void add(int page, String strategy)
 	{
-		for (Frame f : memory)
-		{
-			System.out.println(f.getPage());
-		}
+		// looks for empty frame
 		boolean foundSpace = false;
 		for (int i = 0; i < memory.length; i++)
 		{
 			if (memory[i].getPage() == 0)	// found empty index
 			{
 				memory[i].setPage(page);	// add page here
+				memory[i].setUseBit(1);
 				foundSpace = true;		// return success
-				break;
+				return;
 			}
 		}
-		if (foundSpace == false)	// find last recently used
+
+		// LRU replacement
+		if (strategy.equals("LRU"))
 		{
 			Frame lru = new Frame();
 			int LRU = 0;
@@ -46,7 +48,27 @@ public class Memory
 			}
 			memory[LRU].setPage(page);
 		}
-		return false;				// return failure, memory full
+
+		// CLOCK replacement
+		else
+		{
+			while (true)
+			{
+				for (int i = pointer; i < memory.length; i++)
+				{
+					pointer = i;
+					if (memory[i].getUseBit() == 0)	// set use bit to 0 for next iteration
+					{
+						memory[i].setUseBit(1);
+						memory[i].setPage(page);
+						return;
+					}
+					else
+						memory[i].setUseBit(0);
+				}
+				pointer = 0;
+			}
+		}
 	}
 
 	public int size()
@@ -75,7 +97,10 @@ public class Memory
 		for (Frame f : memory)
 		{
 			if (f.getPage() == page)
+			{
+				f.setUseBit(1);		// useBit set when page is refererenced
 				f.setLastUsed(time);
+			}
 		}
 	}
 }

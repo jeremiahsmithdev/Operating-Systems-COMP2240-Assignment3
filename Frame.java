@@ -2,6 +2,7 @@ public class Frame
 {
 	private int page;
 	private int lastUsed;
+	private int useBit;
 
 	public Frame()
 	{
@@ -27,5 +28,15 @@ public class Frame
 	public void setPage(int page)
 	{
 		this.page = page;
+	}
+
+	public int getUseBit()
+	{
+		return useBit;
+	}
+
+	public void setUseBit(int bit)
+	{
+		useBit = bit;
 	}
 }

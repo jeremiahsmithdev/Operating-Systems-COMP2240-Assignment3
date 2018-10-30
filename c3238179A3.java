@@ -11,6 +11,14 @@
  *      * Description:
  *       */
 
+// TODO
+// print process name in output
+// remove junkyard code
+// documentation
+// header comments
+// further testing
+// streamline methods / program flow of execution
+
 import java.util.List;
 import java.util.LinkedList;
 
@@ -45,23 +53,60 @@ public class c3238179A3
 		// 	files[i] = new File(args[i+2]);
 		// 	br[i] = new BufferedReader(new FileReader(files[i]));
 		// }
+		// parse data from Process text files into Process objects
 		// ==================== TEST INPUT ===============
-			F = 30;
-			Q = 3;
-			// process = new String[4];		// instantiate array of file names
-			files = new File[3];
-			br = new BufferedReader[3];
-			// process[0] = "Process1.txt";process[1] = "Process2.txt";process[2] = "Process3.txt";process[3] = "Process4.txt";
-			files[0] = new File("Process1.txt");files[1] = new File("Process2.txt");files[2] = new File("Process3.txt");
-			br[0] = new BufferedReader(new FileReader(files[0]));br[1] = new BufferedReader(new FileReader(files[1]));
-			br[2] = new BufferedReader(new FileReader(files[2]));
+		F = 30;
+		Q = 3;
+		// process = new String[4];		// instantiate array of file names
+		files = new File[3];
+		br = new BufferedReader[3];
+		// process[0] = "Process1.txt";process[1] = "Process2.txt";process[2] = "Process3.txt";process[3] = "Process4.txt";
+		files[0] = new File("Process1.txt");files[1] = new File("Process2.txt");files[2] = new File("Process3.txt");
+		br[0] = new BufferedReader(new FileReader(files[0]));br[1] = new BufferedReader(new FileReader(files[1]));
+		br[2] = new BufferedReader(new FileReader(files[2]));
 		// ===============================================
 
-		// parse data from Process text files into Process objects
 
 		int f = F / files.length;	// process memory allocation (fixed)
-		System.out.println(f);
 
+		// String line;
+		// Process process[] = new Process[files.length];
+		// for (int i = 0; i < files.length; i++)
+		// {
+		// 	LinkedList<Integer> data = new LinkedList<Integer>();
+		// 	for (line = br[i].readLine(); !line.equals("end"); line = br[i].readLine())
+		// 	{
+		// 		if (!line.equals("begin"))
+		// 			data.add(Integer.parseInt(line));
+		// 	}
+		// 	process[i] = new Process(data, i, f);
+		// }
+		Process[] process = addProcesses(files, br, F, Q);
+
+		Scheduler LRU = new Scheduler(F, Q, "LRU");		// initialize Scheduler with prerequisite date
+		System.out.println("LRU - Fixed");
+		LRU.run(process);
+
+		System.out.println("\n------------------------------------------------------------\n");
+
+		System.out.println("Clock - Fixed");
+		Scheduler CLOCK = new Scheduler(F, Q, "CLOCK");
+		Process[] p = addProcesses(files, br, F, Q);
+		CLOCK.run(p);
+
+
+	}
+
+	public static Process[] addProcesses(File files[], BufferedReader br[], int F, int Q) throws Exception
+	{
+		files = new File[3];
+		br = new BufferedReader[3];
+		// process[0] = "Process1.txt";process[1] = "Process2.txt";process[2] = "Process3.txt";process[3] = "Process4.txt";
+		files[0] = new File("Process1.txt");files[1] = new File("Process2.txt");files[2] = new File("Process3.txt");
+		br[0] = new BufferedReader(new FileReader(files[0]));br[1] = new BufferedReader(new FileReader(files[1]));
+		br[2] = new BufferedReader(new FileReader(files[2]));
+
+		int f = F / files.length;	// process memory allocation (fixed)
 		String line;
 		Process process[] = new Process[files.length];
 		for (int i = 0; i < files.length; i++)
@@ -74,8 +119,7 @@ public class c3238179A3
 			}
 			process[i] = new Process(data, i, f);
 		}
-		Scheduler cpu = new Scheduler(F, Q);		// initialize Scheduler with prerequisite date
-		cpu.run(process);
+		return process;
 	}
 }
 /*

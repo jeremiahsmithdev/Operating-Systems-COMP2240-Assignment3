@@ -38,7 +38,7 @@ public class Process// implements Comparable<Process>
 	public void pageExecute(int time)
 	{
 		int page = pages.poll();
-		System.out.println(" executes page " + page);
+		// System.out.println(" executes page " + page);
 		memory.execute(page, time);
 	}
 
@@ -138,11 +138,11 @@ public class Process// implements Comparable<Process>
 		// System.out.println("Page request added for page " + page + " due at time " + time);
 		requests.add(new PageRequest(page, time));
 		setState("blocked");
-		System.out.println("			"+(id+1) + " BLOCKED!");
+		// System.out.println("			"+(id+1) + " BLOCKED!");
 	}
 
 	// if page ready, then set process to ready and put page in memory
-	public void addReadyPages(int time)
+	public void addReadyPages(int time, String strategy)
 	{
 		LinkedList<PageRequest> used = new LinkedList<PageRequest>();
 		for (PageRequest request : requests)
@@ -150,8 +150,8 @@ public class Process// implements Comparable<Process>
 			if (request.getReady() <= time)
 			{
 				setState("ready");
-				System.out.println("			"+(id+1) + " Ready!");
-				memory.add(request.getPage());
+				// System.out.println("			"+(id+1) + " Ready!");
+				memory.add(request.getPage(), strategy);
 				used.add(request);
 			}
 		}

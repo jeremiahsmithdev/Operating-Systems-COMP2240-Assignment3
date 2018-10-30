@@ -12,6 +12,7 @@ public class Scheduler
 	private LinkedList<Process> finished;
 	private LinkedList<Process> processes;
 	private List<PageRequest> requests;
+	private String strategy;
 	// private Process active;
 	private int time;
 	private int count;
@@ -20,10 +21,11 @@ public class Scheduler
 	// private Memory memory;
 
 	// initialize CPU with frame time and time quantum for use with processes
-	public Scheduler(int F, int Q)
+	public Scheduler(int F, int Q, String strategy)
 	{
 		this.F = F;
 		this.Q = Q;
+		this.strategy = strategy;
 		// this.memory = new Memory(F);
 		// this.memory = new int[F];
 		// this.memory = new LinkedList<Integer>();	// F size
@@ -70,10 +72,10 @@ public class Scheduler
 			}
 			if (time == prev)		// increment when nothing executed
 				time++;//only increment if nothing was executed
-			System.out.println("T = " + time);
+			// System.out.println("T = " + time);
 		}
 
-		System.out.println("PID	 Turnaround Time # Faults  Fault Times");
+		System.out.println("PID	 Turnaround Time # Faults  Fault Times 		Process Name (2nd)");
 		for (Process p : processes)
 		{
 			System.out.println((p.getID()+1) + "	 " + p.getFinishTime() + "		 " + p.faultNo() + "	  " + p.getFaults());
@@ -91,7 +93,7 @@ public class Scheduler
 			{
 				// System.out.println();
 				// System.out.println("	CONTINUING FOR process: --> "+(active.getID()+1));
-				System.out.print(time+"	P"+(active.getID()+1));
+				// System.out.print(time+"	P"+(active.getID()+1));
 				active.pageExecute(time);
 				time++;
 				count++;
@@ -99,7 +101,7 @@ public class Scheduler
 			//
 			else 		// page is not in memory
 			{
-				System.out.println("Does not have page " + active.check());
+				// System.out.println("Does not have page " + active.check());
 				// System.out.println("	PAGE FAULT 	(" + active.check()+")");
 				active.addFault(time);
 
@@ -107,7 +109,7 @@ public class Scheduler
 				// ioRequest(active.check());
 				// active.setState("blocked");
 				active.setWaiting(active.check());
-				System.out.println(time+"	P"+(active.getID()+1) + " waiting for " + active.check());
+				// System.out.println(time+"	P"+(active.getID()+1) + " waiting for " + active.check());
 				// System.out.println("	"+(active.getID()+1) + "	set to be waiting for " + active.check());
 				// readyQueue.remove(active);
 				blocked.add(active);
@@ -140,7 +142,7 @@ public class Scheduler
 			}
 			else
 			{
-				System.out.println("								Process " + (active.getID()+1) +" FINISHED");
+				// System.out.println("								Process " + (active.getID()+1) +" FINISHED");
 				active.setFinishTime(time);
 				finished.add(active);
 			}
@@ -201,7 +203,7 @@ public class Scheduler
 	{
 		for (Process p : processes)
 		{
-			p.addReadyPages(time);
+			p.addReadyPages(time, strategy);
 		}
 	}
 
