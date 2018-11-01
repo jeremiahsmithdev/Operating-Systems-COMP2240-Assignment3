@@ -1,6 +1,6 @@
 /*
-2. Brief 1 page (A4) review of how you tested your program and a comparison of the page replacement methods based on the results from your program and any interesting observations.
-*/
+   2. Brief 1 page (A4) review of how you tested your program and a comparison of the page replacement methods based on the results from your program and any interesting observations.
+   */
 
 /**
  * *
@@ -8,7 +8,7 @@
  *   * @author: Jeremiah Smith
  *    * @student Number: c3238179
  *     * @version: 28/10/2018
- *      * Description:
+ *      * Description: Parses input and files and instantiates classes for simulation
  *       */
 
 // TODO
@@ -18,6 +18,9 @@
 // header comments
 // further testing
 // streamline methods / program flow of execution
+// MAX 50 Pages per process !!!!!!!!!!!!!!!!!!!!!!!!!!!!!!
+// REPORT !!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!
+// argument != filename
 
 import java.util.List;
 import java.util.LinkedList;
@@ -36,52 +39,20 @@ public class c3238179A3
 
 	public static void main(String args[]) throws Exception
 	{
-		// if (args.length > 1)
-		// {
-		// 	F = Integer.parseInt(args[0]);			// sets number of rames
-		// 	Q = Integer.parseInt(args[1]);			// sets quantum size
-		// // 	process = new String[args.length - 2];		// instantiate array of file names
-		// 	files = new File[args.length - 2];
-		// 	br = new BufferedReader[args.length - 2];
-		// }
-		// else 		// warns user of not enough arguments
-		// 	System.out.println("Please run program with correct arguments.\nFor example:\n"
-		// 			+ "java c3238179A3 30 3 process1.txt process2.txt process3.txt");
-		// for (int i = 0; i < args.length - 2; i++)	// set file names from arguments
-		// {
-		// 	// process[i] = args[i+2];
-		// 	files[i] = new File(args[i+2]);
-		// 	br[i] = new BufferedReader(new FileReader(files[i]));
-		// }
-		// parse data from Process text files into Process objects
-		// ==================== TEST INPUT ===============
-		F = 30;
-		Q = 3;
-		// process = new String[4];		// instantiate array of file names
-		files = new File[3];
-		br = new BufferedReader[3];
-		// process[0] = "Process1.txt";process[1] = "Process2.txt";process[2] = "Process3.txt";process[3] = "Process4.txt";
-		files[0] = new File("Process1.txt");files[1] = new File("Process2.txt");files[2] = new File("Process3.txt");
-		br[0] = new BufferedReader(new FileReader(files[0]));br[1] = new BufferedReader(new FileReader(files[1]));
-		br[2] = new BufferedReader(new FileReader(files[2]));
-		// ===============================================
+		if (args.length > 1)
+		{
+			F = Integer.parseInt(args[0]);			// sets number of rames
+			Q = Integer.parseInt(args[1]);			// sets quantum size
+		}
+		else 		// warns user of not enough arguments
+		{
+			System.out.println("Please run program with correct arguments.\nFor example:\n"
+					+ "java c3238179A3 30 3 process1.txt process2.txt process3.txt");
+			return;
+		}
 
 
-		int f = F / files.length;	// process memory allocation (fixed)
-
-		// String line;
-		// Process process[] = new Process[files.length];
-		// for (int i = 0; i < files.length; i++)
-		// {
-		// 	LinkedList<Integer> data = new LinkedList<Integer>();
-		// 	for (line = br[i].readLine(); !line.equals("end"); line = br[i].readLine())
-		// 	{
-		// 		if (!line.equals("begin"))
-		// 			data.add(Integer.parseInt(line));
-		// 	}
-		// 	process[i] = new Process(data, i, f);
-		// }
-		Process[] process = addProcesses(files, br, F, Q);
+		Process[] process = addProcesses(files, br, F, Q, args);
 
 		Scheduler LRU = new Scheduler(F, Q, "LRU");		// initialize Scheduler with prerequisite date
 		System.out.println("LRU - Fixed");
@@ -91,20 +62,22 @@ public class c3238179A3
 
 		System.out.println("Clock - Fixed");
 		Scheduler CLOCK = new Scheduler(F, Q, "CLOCK");
-		Process[] p = addProcesses(files, br, F, Q);
+		Process[] p = addProcesses(files, br, F, Q, args);
 		CLOCK.run(p);
 
 
 	}
 
-	public static Process[] addProcesses(File files[], BufferedReader br[], int F, int Q) throws Exception
+	public static Process[] addProcesses(File files[], BufferedReader br[], int F, int Q, String[] args) throws Exception
 	{
-		files = new File[3];
-		br = new BufferedReader[3];
-		// process[0] = "Process1.txt";process[1] = "Process2.txt";process[2] = "Process3.txt";process[3] = "Process4.txt";
-		files[0] = new File("Process1.txt");files[1] = new File("Process2.txt");files[2] = new File("Process3.txt");
-		br[0] = new BufferedReader(new FileReader(files[0]));br[1] = new BufferedReader(new FileReader(files[1]));
-		br[2] = new BufferedReader(new FileReader(files[2]));
+		files = new File[args.length - 2];
+		br = new BufferedReader[args.length - 2];
+
+		for (int i = 0; i < args.length - 2; i++)	// set file names from arguments
+		{
+			files[i] = new File(args[i+2]);
+			br[i] = new BufferedReader(new FileReader(files[i]));
+		}
 
 		int f = F / files.length;	// process memory allocation (fixed)
 		String line;
@@ -117,7 +90,7 @@ public class c3238179A3
 				if (!line.equals("begin"))
 					data.add(Integer.parseInt(line));
 			}
-			process[i] = new Process(data, i, f);
+			process[i] = new Process(data, i, f, args[i+2]);
 		}
 		return process;
 	}

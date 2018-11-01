@@ -1,3 +1,11 @@
+/**
+ * * 
+ *  * c3238179A3.java – Assignment3
+ *   * @author: Jeremiah Smith
+ *    * @student Number: c3238179
+ *     * @version: 30/10/2018
+ *      * Description:
+ *       */
 import java.util.List;
 import java.util.LinkedList;
 import java.util.ArrayList;
@@ -7,10 +15,10 @@ import java.util.ArrayList;
 public class Process// implements Comparable<Process>
 {
 	private LinkedList<Integer> pages;
-	// private LinkedList<Integer> faultTimes;
 	private ArrayList<Integer> faultTimes;
 	private int id;
 	private String state;
+	private String name;
 	private int waiting;		// page waiting on if blocked
 	private int finishTime;
 	private Memory memory;
@@ -22,23 +30,21 @@ public class Process// implements Comparable<Process>
 
 	}
 
-	public Process(LinkedList<Integer> pages, int id, int frames)
+	public Process(LinkedList<Integer> pages, int id, int frames, String name)
 	{
 		this.pages = pages;
 		this.id = id;
 		this.state = "ready";
-		// this.faultTimes = new LinkedList<Integer>();
-		// this.faultTimes = new int[0];
 		this.faultTimes = new ArrayList<Integer>();
 		this.frames = frames;
 		this.memory = new Memory(frames);
 		this.requests = new LinkedList<PageRequest>();
+		this.name = name;
 	}
 
 	public void pageExecute(int time)
 	{
 		int page = pages.poll();
-		// System.out.println(" executes page " + page);
 		memory.execute(page, time);
 	}
 
@@ -118,10 +124,10 @@ public class Process// implements Comparable<Process>
 		return memory.hasPage(page);
 	}
 
-	// public boolean addPage(int page)
-	// {
-	// 	return memory.add(page);
-	// }
+	public String getName()
+	{
+		return name;
+	}
 
 	public Memory getMemory()
 	{
@@ -134,11 +140,8 @@ public class Process// implements Comparable<Process>
 		for (PageRequest request : requests)
 			if (request.getPage() == page)
 				return;		// don't add existing request
-		// System.out.println("  request for " + page);
-		// System.out.println("Page request added for page " + page + " due at time " + time);
 		requests.add(new PageRequest(page, time));
 		setState("blocked");
-		// System.out.println("			"+(id+1) + " BLOCKED!");
 	}
 
 	// if page ready, then set process to ready and put page in memory
@@ -150,17 +153,10 @@ public class Process// implements Comparable<Process>
 			if (request.getReady() <= time)
 			{
 				setState("ready");
-				// System.out.println("			"+(id+1) + " Ready!");
 				memory.add(request.getPage(), strategy);
 				used.add(request);
 			}
 		}
 		requests.removeAll(used);
 	}
-
-	// public int compareTo(Process p)
-	// {
-	// 	if (id < 
-	// 	return 1;
-	// }
 }

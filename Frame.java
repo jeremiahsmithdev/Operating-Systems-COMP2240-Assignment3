@@ -1,3 +1,11 @@
+/**
+ * * 
+ *  * c3238179A3.java – Assignment3
+ *   * @author: Jeremiah Smith
+ *    * @student Number: c3238179
+ *     * @version: 30/10/2018
+ *      * Description: A frame of memory held by a process, which can hold one page
+ *       */
 public class Frame
 {
 	private int page;

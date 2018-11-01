@@ -1,3 +1,11 @@
+/**
+ * * 
+ *  * c3238179A3.java – Assignment3
+ *   * @author: Jeremiah Smith
+ *    * @student Number: c3238179
+ *     * @version: 30/10/2018
+ *      * Description: Memory allocated to a process, which includes a fixed amount of Frames
+ *       */
 public class Memory
 {
 	private int F;		// frames
@@ -12,7 +20,7 @@ public class Memory
 		this.memory = new Frame[F];
 		this.pointer = 0;
 		// for (Frame p : memory)
-			for (int i = 0; i < memory.length; i++)
+		for (int i = 0; i < memory.length; i++)
 		{
 			memory[i] = new Frame();
 		}
