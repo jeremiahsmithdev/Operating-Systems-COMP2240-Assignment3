@@ -6,9 +6,12 @@
  *     * @version: 30/10/2018
  *      * Description: Schedules processes with Round Robin policy
  *       */
-import java.util.Queue;
+import java.io.BufferedReader;
+import java.io.InputStreamReader;
 import java.util.LinkedList;
 import java.util.List;
+import java.util.Queue;
+import java.util.Scanner;
 
 public class Scheduler
 {
@@ -24,9 +27,17 @@ public class Scheduler
 	private int time;
 	private int count;
 
+	String temp = null;
+
+	private Scanner in;
+	// BufferedReader in;
+
 	// initialize CPU with frame time and time quantum for use with processes
 	public Scheduler(int F, int Q, String strategy)
 	{
+		// in = new BufferedReader(new InputStreamReader(System.in));
+
+
 		this.F = F;
 		this.Q = Q;
 		this.strategy = strategy;
@@ -37,6 +48,45 @@ public class Scheduler
 		this.toInsert = new LinkedList<Process>();
 		this.blocked = new LinkedList<Process>();
 		this.finished = new LinkedList<Process>();
+
+		in = new Scanner(System.in);
+	}
+	public void debuggerM()
+	{
+		System.out.print("\nTIME: " + time);
+		System.out.println(" (manual time update)");
+		System.out.print("ReadyQueue: ");
+		for (Process p : readyQueue)
+		{
+				System.out.print(p.getName() + " 	");
+		}
+		System.out.println(readyQueue.size());
+
+		System.out.print("Blocked: ");
+		for (Process p : blocked)
+		{
+				System.out.print(p.getName() + " 	");
+		}
+		System.out.println(blocked.size());
+		// System.out.println(blocked.size());
+	}
+
+	public void debugger()
+	{
+		System.out.print("\nTIME: " + time);
+		System.out.print("ReadyQueue: ");
+		for (Process p : readyQueue)
+		{
+				System.out.print(p.getName() + " 	");
+		}
+		System.out.println(readyQueue.size());
+
+		System.out.print("Blocked: ");
+		for (Process p : blocked)
+		{
+				System.out.print(p.getName() + " 	");
+		}
+		System.out.println(blocked.size());
 	}
 
 	public void run(Process process[])
@@ -51,22 +101,36 @@ public class Scheduler
 
 		// run while proccesses are still in the ready queue
 		while (finished.size() < processes.size())
+		// for (int o = 0; o < 10; o++)
 		{
+			// System.out.println("finished size = " + finished.size() + " and process size = " + processes.size());
 			// check for pages finished loading
 			checkForReady();
-			insertInOrder();
+			// insertInOrder();//TODO can be done together
 			int prev = time;	// for later reference
 
-			// loop over ready Processes
-			for (Process active : processes)
+
+			// for (Process ready : readyQueue)
+			int size = readyQueue.size();
+			for (int i = 0; i < size; i++)
 			{
-				// Process active = readyQueue.poll();
-				if (active.getState().equals("ready"))
-					execute(active);
-				// add back to readyQueue if not finished
+				execute(readyQueue.poll());
 			}
-			if (time == prev)		// increment when nothing executed
+
+			// // loop over ready Processes
+			// for (Process ready : processes)
+			// {
+			// 	// Process ready = readyQueue.poll();
+			// 	if (ready.getState().equals("ready"))
+			// 		execute(ready);
+			// 	// add back to readyQueue if not finished
+			// }
+			if (time == prev)		// increment when no exection events occured since last loop
+			{
 				time++;//only increment if nothing was executed
+				//DEBUGGER
+				// debuggerM();
+			}
 		}
 
 		System.out.println("PID	 Process Name	Turnaround Time # Faults  Fault Times");
@@ -76,70 +140,92 @@ public class Scheduler
 		}
 	}
 
-	public void execute(Process active)
+	public void execute(Process ready)
 	{
 		count = 0;
-		while (/*active.getState().equals("ready") && */active.getPages().size() > 0 && count < Q)	// 'Q' may change here
+		while (/*ready.getState().equals("ready") && */ready.getPages().size() > 0 && count < Q)	// 'Q' may change here
 		{
-			// if (inMemory(active.check()))	// page is in memory
-			if (active.hasPage(active.check()))
+			// if (inMemory(ready.check()))	// page is in memory
+			if (ready.hasPage(ready.check()))
 			{
-				active.pageExecute(time);
+				ready.pageExecute(time);
 				time++;
+				// debugger();
 				count++;
 			}
 			//
 			else 		// page is not in memory
 			{
-				active.addFault(time);
+				ready.addFault(time);
 
-				active.addRequest(active.check(), time+6);
-				active.setWaiting(active.check());
-				blocked.add(active);
+				ready.addRequest(ready.check(), time+6);
+				ready.setWaiting(ready.check());
+				blocked.add(ready);
 				// break;
 				return;
 			}
+			// //--------- MOVED
+			// 	time++;
+			// 	debugger();
+			// 	count++;
+			// checkForReady();
+			// insertInOrder();
+			// // ------------
 
 			checkForReady();
-			insertInOrder();
+			// insertInOrder();
 
 		}
-		if (active.getPages().size() > 0) // TODO && NOT BLOCKED
+		if (ready.getPages().size() > 0) // TODO && NOT BLOCKED
 		{
-			readyQueue.add(active);
+			readyQueue.add(ready);	// add back to queue if not finished
 		}
 		else
 		{
-			active.setFinishTime(time);
-			finished.add(active);
+			ready.setFinishTime(time);
+			finished.add(ready);
 		}
+
 
 	}
 
-	public void insertInOrder()
-	{
-		Process insertNext = new Process();
-		while (toInsert.size() > 0)
-		{
-			int min = Integer.MAX_VALUE;
-			for (Process p : toInsert)
-			{
-				if (p.getID() < min)
-				{
-					insertNext = p;
-					min = p.getID();
-				}
-			}
-			readyQueue.add(insertNext);
-			toInsert.remove(insertNext);
-		}
-	}
+	// public void insertInOrder()
+	// {
+	// 	Process insertNext = new Process();
+	// 	while (toInsert.size() > 0)
+	// 	{
+	// 		int min = Integer.MAX_VALUE;
+	// 		for (Process p : toInsert)
+	// 		{
+	// 			if (p.getID() < min)
+	// 			{
+	// 				insertNext = p;
+	// 				min = p.getID();
+	// 			}
+	// 		}
+	// 		readyQueue.add(insertNext);
+	// 		toInsert.remove(insertNext);
+	// 	}
+	// }
 
 	public void checkForReady()
 	{
-		for (Process p : processes)
+		// for (Process p : blocked)
+		// {
+		// 	if (p.checkReady(time, strategy))
+		// 		readyQueue.add(p);
+		// }
+		LinkedList<Process> found = new LinkedList<Process>();
+		for (Process p : blocked)
 		{
-			p.addReadyPages(time, strategy);
+			if (p.addReadyPages(time, strategy))
+			{
+				found.add(p);
+				// blocked.remove(p);
+				// readyQueue.add(p);
+			}
 		}
+		blocked.removeAll(found);
+		readyQueue.addAll(found);
 	}
 }

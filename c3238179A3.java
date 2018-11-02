@@ -21,6 +21,8 @@
 // MAX 50 Pages per process !!!!!!!!!!!!!!!!!!!!!!!!!!!!!!
 // REPORT !!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!
 // argument != filename
+//
+// it's not even operating as a queue lol
 
 import java.util.List;
 import java.util.LinkedList;

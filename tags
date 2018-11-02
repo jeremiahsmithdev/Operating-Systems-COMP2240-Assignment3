@@ -23,7 +23,7 @@ Scheduler	Scheduler.java	/^public class Scheduler$/;"	c
 add	Memory.java	/^	public void add(int page, String strategy)$/;"	m	class:Memory
 addFault	Process.java	/^	public void addFault(int time)$/;"	m	class:Process
 addProcesses	c3238179A3.java	/^	public static Process[] addProcesses(File files[], BufferedReader br[], int F, int Q, String[] args) throws Exception$/;"	m	class:c3238179A3
-addReadyPages	Process.java	/^	public void addReadyPages(int time, String strategy)$/;"	m	class:Process
+addReadyPages	Process.java	/^	public boolean addReadyPages(int time, String strategy)$/;"	m	class:Process
 addRequest	Process.java	/^	public void addRequest(int page, int time)$/;"	m	class:Process
 blocked	Scheduler.java	/^	private LinkedList<Process> blocked;$/;"	f	class:Scheduler	file:
 br	c3238179A3.java	/^	static BufferedReader br[];$/;"	f	class:c3238179A3
@@ -31,8 +31,10 @@ c3238179A3	c3238179A3.java	/^public class c3238179A3$/;"	c
 check	Process.java	/^	public int check()$/;"	m	class:Process
 checkForReady	Scheduler.java	/^	public void checkForReady()$/;"	m	class:Scheduler
 count	Scheduler.java	/^	private int count;$/;"	f	class:Scheduler	file:
+debugger	Scheduler.java	/^	public void debugger()$/;"	m	class:Scheduler
+debuggerM	Scheduler.java	/^	public void debuggerM()$/;"	m	class:Scheduler
 execute	Memory.java	/^	public void execute(int page, int time)$/;"	m	class:Memory
-execute	Scheduler.java	/^	public void execute(Process active)$/;"	m	class:Scheduler
+execute	Scheduler.java	/^	public void execute(Process ready)$/;"	m	class:Scheduler
 faultNo	Process.java	/^	public int faultNo()$/;"	m	class:Process
 faultTimes	Process.java	/^	private ArrayList<Integer> faultTimes;$/;"	f	class:Process	file:
 files	c3238179A3.java	/^	static File files[];$/;"	f	class:c3238179A3
@@ -55,7 +57,7 @@ getWaiting	Process.java	/^	public int getWaiting()$/;"	m	class:Process
 hasPage	Memory.java	/^	public boolean hasPage(int page)$/;"	m	class:Memory
 hasPage	Process.java	/^	public boolean hasPage(int page)$/;"	m	class:Process
 id	Process.java	/^	private int id;$/;"	f	class:Process	file:
-insertInOrder	Scheduler.java	/^	public void insertInOrder()$/;"	m	class:Scheduler
+in	Scheduler.java	/^	private Scanner in;$/;"	f	class:Scheduler	file:
 lastUsed	Frame.java	/^	private int lastUsed;$/;"	f	class:Frame	file:
 main	c3238179A3.java	/^	public static void main(String args[]) throws Exception$/;"	m	class:c3238179A3
 memory	Memory.java	/^	private Frame memory[];$/;"	f	class:Memory	file:
@@ -81,6 +83,7 @@ setWaiting	Process.java	/^	public void setWaiting(int page)$/;"	m	class:Process
 size	Memory.java	/^	public int size()$/;"	m	class:Memory
 state	Process.java	/^	private String state;$/;"	f	class:Process	file:
 strategy	Scheduler.java	/^	private String strategy;$/;"	f	class:Scheduler	file:
+temp	Scheduler.java	/^	String temp = null;$/;"	f	class:Scheduler
 time	Scheduler.java	/^	private int time;$/;"	f	class:Scheduler	file:
 toInsert	Scheduler.java	/^	private LinkedList<Process> toInsert;$/;"	f	class:Scheduler	file:
 useBit	Frame.java	/^	private int useBit;$/;"	f	class:Frame	file:

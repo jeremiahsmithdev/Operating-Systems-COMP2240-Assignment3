@@ -144,19 +144,40 @@ public class Process// implements Comparable<Process>
 		setState("blocked");
 	}
 
+	// // experimental , return if a page is ready
+	// public boolean checkReady(int time, String strategy)
+	// {
+	// 	LinkedList<PageRequest> used = new LinkedList<PageRequest>();
+	// 	for (PageRequest request : requests)
+	// 	{
+	// 		if (request.getReady() <= time)
+	// 		{
+	// 			setState("ready");
+	// 			memory.add(request.getPage(), strategy);
+	// 			used.add(request);
+	// 			return true;
+	// 		}
+	// 	}
+	// 	requests.removeAll(used);
+	// 	return false;
+	// }
+
 	// if page ready, then set process to ready and put page in memory
-	public void addReadyPages(int time, String strategy)
+	public boolean addReadyPages(int time, String strategy)
 	{
+		boolean processReady = false;
 		LinkedList<PageRequest> used = new LinkedList<PageRequest>();
 		for (PageRequest request : requests)
 		{
 			if (request.getReady() <= time)
 			{
+				processReady = true;
 				setState("ready");
 				memory.add(request.getPage(), strategy);
 				used.add(request);
 			}
 		}
 		requests.removeAll(used);
+		return processReady;
 	}
 }
