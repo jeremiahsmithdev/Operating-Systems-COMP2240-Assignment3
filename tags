@@ -15,7 +15,7 @@ PageRequest	PageRequest.java	/^	public PageRequest(int page, int ready)$/;"	m	cl
 PageRequest	PageRequest.java	/^public class PageRequest$/;"	c
 Process	Process.java	/^	public Process()$/;"	m	class:Process
 Process	Process.java	/^	public Process(LinkedList<Integer> pages, int id, int frames, String name)$/;"	m	class:Process
-Process	Process.java	/^public class Process\/\/ implements Comparable<Process>$/;"	c
+Process	Process.java	/^public class Process implements Comparable<Process>$/;"	c
 Q	Scheduler.java	/^	private int Q;$/;"	f	class:Scheduler	file:
 Q	c3238179A3.java	/^	static private int Q;	\/\/ quantum size$/;"	f	class:c3238179A3	file:
 Scheduler	Scheduler.java	/^	public Scheduler(int F, int Q, String strategy)$/;"	m	class:Scheduler
@@ -25,14 +25,15 @@ addFault	Process.java	/^	public void addFault(int time)$/;"	m	class:Process
 addProcesses	c3238179A3.java	/^	public static Process[] addProcesses(File files[], BufferedReader br[], int F, int Q, String[] args) throws Exception$/;"	m	class:c3238179A3
 addReadyPages	Process.java	/^	public boolean addReadyPages(int time, String strategy)$/;"	m	class:Process
 addRequest	Process.java	/^	public void addRequest(int page, int time)$/;"	m	class:Process
+addTime	Process.java	/^	private int addTime;$/;"	f	class:Process	file:
 blocked	Scheduler.java	/^	private LinkedList<Process> blocked;$/;"	f	class:Scheduler	file:
 br	c3238179A3.java	/^	static BufferedReader br[];$/;"	f	class:c3238179A3
 c3238179A3	c3238179A3.java	/^public class c3238179A3$/;"	c
 check	Process.java	/^	public int check()$/;"	m	class:Process
 checkForReady	Scheduler.java	/^	public void checkForReady()$/;"	m	class:Scheduler
+compareTo	Process.java	/^	public int compareTo(Process p)$/;"	m	class:Process
 count	Scheduler.java	/^	private int count;$/;"	f	class:Scheduler	file:
 debugger	Scheduler.java	/^	public void debugger()$/;"	m	class:Scheduler
-debuggerM	Scheduler.java	/^	public void debuggerM()$/;"	m	class:Scheduler
 execute	Memory.java	/^	public void execute(int page, int time)$/;"	m	class:Memory
 execute	Scheduler.java	/^	public void execute(Process ready)$/;"	m	class:Scheduler
 faultNo	Process.java	/^	public int faultNo()$/;"	m	class:Process
@@ -41,6 +42,7 @@ files	c3238179A3.java	/^	static File files[];$/;"	f	class:c3238179A3
 finishTime	Process.java	/^	private int finishTime;$/;"	f	class:Process	file:
 finished	Scheduler.java	/^	private LinkedList<Process> finished;$/;"	f	class:Scheduler	file:
 frames	Process.java	/^	private int frames;$/;"	f	class:Process	file:
+getAddTime	Process.java	/^	public int getAddTime()$/;"	m	class:Process
 getFaults	Process.java	/^	public String getFaults()$/;"	m	class:Process
 getFinishTime	Process.java	/^	public int getFinishTime()$/;"	m	class:Process
 getID	Process.java	/^	public int getID()$/;"	m	class:Process
@@ -70,10 +72,11 @@ pages	Process.java	/^	private LinkedList<Integer> pages;$/;"	f	class:Process	fil
 pointer	Memory.java	/^	private int pointer;$/;"	f	class:Memory	file:
 processes	Scheduler.java	/^	private LinkedList<Process> processes;$/;"	f	class:Scheduler	file:
 ready	PageRequest.java	/^	private int ready;$/;"	f	class:PageRequest	file:
-readyQueue	Scheduler.java	/^	private LinkedList<Process> readyQueue;$/;"	f	class:Scheduler	file:
+readyQueue	Scheduler.java	/^	private PriorityQueue<Process> readyQueue;$/;"	f	class:Scheduler	file:
 requests	Process.java	/^	private List<PageRequest> requests;$/;"	f	class:Process	file:
 requests	Scheduler.java	/^	private List<PageRequest> requests;$/;"	f	class:Scheduler	file:
 run	Scheduler.java	/^	public void run(Process process[])$/;"	m	class:Scheduler
+setAddTime	Process.java	/^	public void setAddTime(int addTime)$/;"	m	class:Process
 setFinishTime	Process.java	/^	public void setFinishTime(int time)$/;"	m	class:Process
 setLastUsed	Frame.java	/^	public void setLastUsed(int time)$/;"	m	class:Frame
 setPage	Frame.java	/^	public void setPage(int page)$/;"	m	class:Frame

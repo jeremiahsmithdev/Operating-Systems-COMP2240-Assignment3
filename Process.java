@@ -12,7 +12,7 @@ import java.util.ArrayList;
 
 // TODO max 50 pages
 
-public class Process// implements Comparable<Process>
+public class Process implements Comparable<Process>
 {
 	private LinkedList<Integer> pages;
 	private ArrayList<Integer> faultTimes;
@@ -24,6 +24,7 @@ public class Process// implements Comparable<Process>
 	private Memory memory;
 	private int frames;
 	private List<PageRequest> requests;
+	private int addTime;
 
 	public Process()
 	{
@@ -40,6 +41,7 @@ public class Process// implements Comparable<Process>
 		this.memory = new Memory(frames);
 		this.requests = new LinkedList<PageRequest>();
 		this.name = name;
+		addTime = 0;
 	}
 
 	public void pageExecute(int time)
@@ -161,6 +163,15 @@ public class Process// implements Comparable<Process>
 	// 	requests.removeAll(used);
 	// 	return false;
 	// }
+	public void setAddTime(int addTime)
+	{
+		this.addTime = addTime;
+	}
+
+	public int getAddTime()
+	{
+		return addTime;
+	}
 
 	// if page ready, then set process to ready and put page in memory
 	public boolean addReadyPages(int time, String strategy)
@@ -179,5 +190,22 @@ public class Process// implements Comparable<Process>
 		}
 		requests.removeAll(used);
 		return processReady;
+	}
+
+	public int compareTo(Process p)
+	{
+		if (addTime < p.getAddTime())
+			return -1;
+		else if (addTime > p.getAddTime())
+			return 1;
+		else if (addTime == p.getAddTime())
+		{
+			if (id < p.getID())
+				return -1;
+			else if (id > p.getID())
+				return 1;
+		}
+
+		return 0;
 	}
 }

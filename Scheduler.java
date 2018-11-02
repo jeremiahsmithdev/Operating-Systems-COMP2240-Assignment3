@@ -1,6 +1,6 @@
 /**
  * * 
- *  * c3238179A3.java – Assignment3
+ *  * Scheduler.java – COMP1140 Assignment3
  *   * @author: Jeremiah Smith
  *    * @student Number: c3238179
  *     * @version: 30/10/2018
@@ -12,12 +12,13 @@ import java.util.LinkedList;
 import java.util.List;
 import java.util.Queue;
 import java.util.Scanner;
+import java.util.PriorityQueue;
 
 public class Scheduler
 {
 	private int F;
 	private int Q;
-	private LinkedList<Process> readyQueue;
+	private PriorityQueue<Process> readyQueue;
 	private LinkedList<Process> toInsert;
 	private LinkedList<Process> blocked;
 	private LinkedList<Process> finished;
@@ -44,44 +45,27 @@ public class Scheduler
 		this.requests = new LinkedList<PageRequest>();
 		this.time = 0;
 		this.processes = new LinkedList<Process>();
-		this.readyQueue = new LinkedList<Process>();
+		this.readyQueue = new PriorityQueue<Process>();
 		this.toInsert = new LinkedList<Process>();
 		this.blocked = new LinkedList<Process>();
 		this.finished = new LinkedList<Process>();
 
 		in = new Scanner(System.in);
 	}
-	public void debuggerM()
-	{
-		System.out.print("\nTIME: " + time);
-		System.out.println(" (manual time update)");
-		System.out.print("ReadyQueue: ");
-		for (Process p : readyQueue)
-		{
-				System.out.print(p.getName() + " 	");
-		}
-		System.out.println(readyQueue.size());
-
-		System.out.print("Blocked: ");
-		for (Process p : blocked)
-		{
-				System.out.print(p.getName() + " 	");
-		}
-		System.out.println(blocked.size());
-		// System.out.println(blocked.size());
-	}
 
 	public void debugger()
 	{
-		System.out.print("\nTIME: " + time);
-		System.out.print("ReadyQueue: ");
-		for (Process p : readyQueue)
-		{
-				System.out.print(p.getName() + " 	");
-		}
-		System.out.println(readyQueue.size());
 
-		System.out.print("Blocked: ");
+		System.out.println("\nTIME: " + time);
+		System.out.print("ReadyQueue: " + readyQueue.size() + " ");
+		// for (Process p : readyQueue)
+		// for (int i = 0; i < readyQueue.size(); i++)
+		readyQueue.stream().forEachOrdered(p ->
+		{
+				System.out.print(p.getName() + " (" + p.getAddTime() + ") 	");
+		});
+
+		System.out.print("\nBlocked: ");
 		for (Process p : blocked)
 		{
 				System.out.print(p.getName() + " 	");
@@ -129,7 +113,6 @@ public class Scheduler
 			{
 				time++;//only increment if nothing was executed
 				//DEBUGGER
-				// debuggerM();
 			}
 		}
 
@@ -178,6 +161,7 @@ public class Scheduler
 		}
 		if (ready.getPages().size() > 0) // TODO && NOT BLOCKED
 		{
+			ready.setAddTime(time);
 			readyQueue.add(ready);	// add back to queue if not finished
 		}
 		else
@@ -221,6 +205,7 @@ public class Scheduler
 			if (p.addReadyPages(time, strategy))
 			{
 				found.add(p);
+				p.setAddTime(time);
 				// blocked.remove(p);
 				// readyQueue.add(p);
 			}

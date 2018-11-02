@@ -69,6 +69,10 @@ public class Memory
 					{
 						memory[i].setUseBit(1);
 						memory[i].setPage(page);
+						if (pointer == memory.length-1)
+							pointer = 0;
+						else
+							pointer = pointer + 1;
 						return;
 					}
 					else
